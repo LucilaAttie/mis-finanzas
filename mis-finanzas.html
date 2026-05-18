@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis Finanzas</title>
+
+<!-- URL real hosteada en GitHub — iOS sí acepta esto para el home screen icon -->
+<link rel="apple-touch-icon" href="https://lucilaattie.github.io/mis-finanzas/icon.png">
+<link rel="apple-touch-icon-precomposed" href="https://lucilaattie.github.io/mis-finanzas/icon.png">
+<link rel="icon" href="https://lucilaattie.github.io/mis-finanzas/icon.png">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mis Finanzas">
+<meta name="theme-color" content="#FFF0F7">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:-apple-system,system-ui,sans-serif;
+  background:#FFF0F7;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:32px 24px;gap:0;
+}
+.icon-wrap{
+  width:110px;height:110px;border-radius:24px;overflow:hidden;
+  margin-bottom:24px;
+  box-shadow:0 8px 32px rgba(219,39,119,.22);
+}
+.icon-wrap img{width:100%;height:100%;display:block;}
+h1{font-size:26px;font-weight:700;color:#1A1526;letter-spacing:-.5px;margin-bottom:6px;text-align:center;}
+.tagline{font-size:15px;color:#9D174D;font-weight:400;margin-bottom:44px;text-align:center;}
+.steps{width:100%;max-width:320px;display:flex;flex-direction:column;gap:14px;margin-bottom:32px;}
+.step{display:flex;align-items:flex-start;gap:14px;background:white;border-radius:14px;padding:15px;border:1px solid rgba(219,39,119,.12);}
+.step-num{width:26px;height:26px;border-radius:50%;background:#DB2777;color:white;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.step-text{font-size:14px;color:#1A1526;line-height:1.5;}
+.step-text strong{font-weight:700;}
+.open-btn{
+  width:100%;max-width:320px;padding:17px;
+  background:#DB2777;color:white;border:none;border-radius:14px;
+  font-size:17px;font-weight:700;cursor:pointer;
+  box-shadow:0 6px 20px rgba(219,39,119,.3);
+  -webkit-tap-highlight-color:transparent;
+}
+.note{font-size:12px;color:#B45390;margin-top:12px;text-align:center;max-width:280px;}
+</style>
+</head>
+<body>
+<div class="icon-wrap">
+  <img src="https://lucilaattie.github.io/mis-finanzas/icon.png" alt="Mis Finanzas">
+</div>
+<h1>Mis Finanzas</h1>
+<p class="tagline">Tu tracker de gastos personal</p>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">Tocá el ícono de <strong>compartir</strong> (cuadrado con flecha) en Safari</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">Seleccioná <strong>"Agregar a pantalla de inicio"</strong></div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">Tocá <strong>Agregar</strong> — el ícono rosa aparece en tu home screen</div>
+  </div>
+</div>
+
+<button class="open-btn" onclick="window.location.href='https://script.google.com/macros/s/AKfycby1mtbTJY4r9Yfwc-WP2B308PvHzpORiW7lQ8DbZL65Jj4EwFj54yUHDy56d_mLHXn28w/exec'">
+  Abrir la app →
+</button>
+<p class="note">Una vez agregada al home screen, se abre directo sin pasar por acá</p>
+
+<script>
+  // Solo redirigir si se abre desde el home screen (modo standalone)
+  if (window.navigator.standalone === true) {
+    window.location.replace("https://script.google.com/macros/s/AKfycby1mtbTJY4r9Yfwc-WP2B308PvHzpORiW7lQ8DbZL65Jj4EwFj54yUHDy56d_mLHXn28w/exec");
+  }
+</script>
+</body>
+</html>
