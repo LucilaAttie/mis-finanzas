@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mis Finanzas</title>
 
-<!-- URL real hosteada en GitHub — iOS sí acepta esto para el home screen icon -->
 <link rel="apple-touch-icon" href="https://lucilaattie.github.io/mis-finanzas/icon-v2.png">
 <link rel="apple-touch-icon-precomposed" href="https://lucilaattie.github.io/mis-finanzas/icon-v2.png">
 <link rel="icon" href="https://lucilaattie.github.io/mis-finanzas/icon-v2.png">
@@ -14,69 +13,156 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mis Finanzas">
 <meta name="theme-color" content="#FFF0F7">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500&family=Unbounded:wght@900&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:-apple-system,system-ui,sans-serif;
-  background:#FFF0F7;min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:32px 24px;gap:0;
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  background: #FFF0F7;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  overflow: hidden;
 }
-.icon-wrap{
-  width:110px;height:110px;border-radius:24px;overflow:hidden;
-  margin-bottom:24px;
-  box-shadow:0 8px 32px rgba(219,39,119,.22);
+
+/* ── SVG LOGO — ocupa mitad del ancho ── */
+.logo-svg {
+  width: 50vw;
+  max-width: 240px;
+  height: auto;
 }
-.icon-wrap img{width:100%;height:100%;display:block;}
-h1{font-size:26px;font-weight:700;color:#1A1526;letter-spacing:-.5px;margin-bottom:6px;text-align:center;}
-.tagline{font-size:15px;color:#9D174D;font-weight:400;margin-bottom:44px;text-align:center;}
-.steps{width:100%;max-width:320px;display:flex;flex-direction:column;gap:14px;margin-bottom:32px;}
-.step{display:flex;align-items:flex-start;gap:14px;background:white;border-radius:14px;padding:15px;border:1px solid rgba(219,39,119,.12);}
-.step-num{width:26px;height:26px;border-radius:50%;background:#DB2777;color:white;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-.step-text{font-size:14px;color:#1A1526;line-height:1.5;}
-.step-text strong{font-weight:700;}
-.open-btn{
-  width:100%;max-width:320px;padding:17px;
-  background:#DB2777;color:white;border:none;border-radius:14px;
-  font-size:17px;font-weight:700;cursor:pointer;
-  box-shadow:0 6px 20px rgba(219,39,119,.3);
-  -webkit-tap-highlight-color:transparent;
+
+/* ── Animación loop: barras suben una a una, se quedan, bajan juntas, repiten ──
+   Ciclo total: 2.4s
+   Cada barra sube en el 14% del ciclo (≈0.34s), escalonadas de a 13%.
+   Todas sostienen hasta el 72%, bajan al 84%, descansan hasta el 100%.
+── */
+
+.b1, .b2, .b3, .b4 {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation-duration: 2.4s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
 }
-.note{font-size:12px;color:#B45390;margin-top:12px;text-align:center;max-width:280px;}
+
+@keyframes loop1 {
+  0%   { transform: scaleY(0); }
+  14%  { transform: scaleY(1); }
+  72%  { transform: scaleY(1); }
+  84%  { transform: scaleY(0); }
+  100% { transform: scaleY(0); }
+}
+@keyframes loop2 {
+  0%,13%  { transform: scaleY(0); }
+  27%     { transform: scaleY(1); }
+  72%     { transform: scaleY(1); }
+  84%     { transform: scaleY(0); }
+  100%    { transform: scaleY(0); }
+}
+@keyframes loop3 {
+  0%,26%  { transform: scaleY(0); }
+  40%     { transform: scaleY(1); }
+  72%     { transform: scaleY(1); }
+  84%     { transform: scaleY(0); }
+  100%    { transform: scaleY(0); }
+}
+@keyframes loop4 {
+  0%,39%  { transform: scaleY(0); }
+  53%     { transform: scaleY(1); }
+  72%     { transform: scaleY(1); }
+  84%     { transform: scaleY(0); }
+  100%    { transform: scaleY(0); }
+}
+
+.b1 { animation-name: loop1; }
+.b2 { animation-name: loop2; }
+.b3 { animation-name: loop3; }
+.b4 { animation-name: loop4; }
+
+/* ── TEXTO ── */
+.title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(17px, 4.8vw, 26px);
+  font-weight: 900;
+  color: #DB2777;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-top: 28px;
+  animation: fadeUp .5s .9s ease both;
+}
+.tagline {
+  font-size: clamp(13px, 3.5vw, 16px);
+  font-weight: 500;
+  color: #DF9DBA;
+  letter-spacing: .1px;
+  margin-top: 20px;
+  animation: fadeUp .5s 1.05s ease both;
+}
+
+
+/* ── FALLBACK ── */
+.fallback {
+  position: fixed;
+  bottom: 32px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(219,39,119,.35);
+  text-decoration: none;
+  opacity: 0;
+  animation: fadeUp .4s 2s ease forwards;
+  -webkit-tap-highlight-color: transparent;
+}
+.fallback:active { opacity: .5; }
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(10px); }
+  to   { opacity:1; transform: translateY(0); }
+}
 </style>
 </head>
 <body>
-<div class="icon-wrap">
-  <img src="https://lucilaattie.github.io/mis-finanzas/icon-v2.png" alt="Mis Finanzas">
-</div>
-<h1>Mis Finanzas</h1>
-<p class="tagline">Tu tracker de gastos personal</p>
 
-<div class="steps">
-  <div class="step">
-    <div class="step-num">1</div>
-    <div class="step-text">Tocá el ícono de <strong>compartir</strong> (cuadrado con flecha) en Safari</div>
-  </div>
-  <div class="step">
-    <div class="step-num">2</div>
-    <div class="step-text">Seleccioná <strong>"Agregar a pantalla de inicio"</strong></div>
-  </div>
-  <div class="step">
-    <div class="step-num">3</div>
-    <div class="step-text">Tocá <strong>Agregar</strong> — el ícono rosa aparece en tu home screen</div>
-  </div>
-</div>
+<!-- Logo SVG inline, sin fondo ni recuadro -->
+<svg class="logo-svg" viewBox="36 38 108 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bar 1: más corta, izquierda -->
+  <path class="b1"
+    d="M55.9333 106H39.0667C37.373 106 36 107.393 36 109.111V144.889C36 146.607 37.373 148 39.0667 148H55.9333C57.627 148 59 146.607 59 144.889V109.111C59 107.393 57.627 106 55.9333 106Z"
+    fill="#DB2777" fill-opacity="0.18"/>
+  <!-- Bar 2 -->
+  <path class="b2"
+    d="M84.8 84H67.2C65.4327 84 64 85.3977 64 87.122V144.878C64 146.602 65.4327 148 67.2 148H84.8C86.5673 148 88 146.602 88 144.878V87.122C88 85.3977 86.5673 84 84.8 84Z"
+    fill="#DB2777" fill-opacity="0.4"/>
+  <!-- Bar 3 -->
+  <path class="b3"
+    d="M112.8 62H95.2C93.4327 62 92 63.4001 92 65.1273V144.873C92 146.6 93.4327 148 95.2 148H112.8C114.567 148 116 146.6 116 144.873V65.1273C116 63.4001 114.567 62 112.8 62Z"
+    fill="#DB2777" fill-opacity="0.64"/>
+  <!-- Bar 4: la más alta, derecha -->
+  <path class="b4"
+    d="M140.933 38H124.067C122.373 38 121 39.4071 121 41.1429V144.857C121 146.593 122.373 148 124.067 148H140.933C142.627 148 144 146.593 144 144.857V41.1429C144 39.4071 142.627 38 140.933 38Z"
+    fill="#DB2777"/>
+</svg>
 
-<button class="open-btn" onclick="window.location.href='https://script.google.com/macros/s/AKfycby1mtbTJY4r9Yfwc-WP2B308PvHzpORiW7lQ8DbZL65Jj4EwFj54yUHDy56d_mLHXn28w/exec'">
-  Abrir la app →
-</button>
-<p class="note">Una vez agregada al home screen, se abre directo sin pasar por acá</p>
+<div class="title">MIS FINANZAS</div>
+<div class="tagline">Tu tracker personal</div>
+
+<a class="fallback" href="https://script.google.com/macros/s/AKfycby1mtbTJY4r9Yfwc-WP2B308PvHzpORiW7lQ8DbZL65Jj4EwFj54yUHDy56d_mLHXn28w/exec">
+  Abrir →
+</a>
 
 <script>
-  // Solo redirigir si se abre desde el home screen (modo standalone)
-  if (window.navigator.standalone === true) {
-    window.location.replace("https://script.google.com/macros/s/AKfycby1mtbTJY4r9Yfwc-WP2B308PvHzpORiW7lQ8DbZL65Jj4EwFj54yUHDy56d_mLHXn28w/exec");
-  }
+  const APP_URL = 'https://script.google.com/macros/s/AKfycby1mtbTJY4r9Yfwc-WP2B308PvHzpORiW7lQ8DbZL65Jj4EwFj54yUHDy56d_mLHXn28w/exec';
+  setTimeout(() => { window.location.replace(APP_URL); }, 4800);
 </script>
 </body>
 </html>
