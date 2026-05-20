@@ -162,7 +162,9 @@ body {
 
 <script>
   const APP_URL = 'https://script.google.com/macros/s/AKfycby1mtbTJY4r9Yfwc-WP2B308PvHzpORiW7lQ8DbZL65Jj4EwFj54yUHDy56d_mLHXn28w/exec';
-  setTimeout(() => { window.location.replace(APP_URL); }, 4800);
+  // Redirige casi de inmediato — la animación se ve mientras GAS carga en segundo plano.
+  // El delay de 300ms solo sirve para que la animación arranque antes de navegar.
+  setTimeout(() => { window.location.replace(APP_URL); }, 300);
 </script>
 </body>
 </html>
