@@ -16,7 +16,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500&family=Unbounded:wght@900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Unbounded:wght@900&display=swap" rel="stylesheet">
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -30,23 +30,17 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0;
   overflow: hidden;
 }
 
-/* ── SVG LOGO — ocupa mitad del ancho ── */
+/* ── Logo ── */
 .logo-svg {
   width: 50vw;
   max-width: 240px;
   height: auto;
 }
 
-/* ── Animación loop: barras suben una a una, se quedan, bajan juntas, repiten ──
-   Ciclo total: 2.4s
-   Cada barra sube en el 14% del ciclo (≈0.34s), escalonadas de a 13%.
-   Todas sostienen hasta el 72%, bajan al 84%, descansan hasta el 100%.
-── */
-
+/* ── Animación barras ── */
 .b1, .b2, .b3, .b4 {
   transform-box: fill-box;
   transform-origin: 50% 100%;
@@ -54,7 +48,6 @@ body {
   animation-timing-function: ease-out;
   animation-iteration-count: infinite;
 }
-
 @keyframes loop1 {
   0%   { transform: scaleY(0); }
   14%  { transform: scaleY(1); }
@@ -83,13 +76,12 @@ body {
   84%     { transform: scaleY(0); }
   100%    { transform: scaleY(0); }
 }
-
 .b1 { animation-name: loop1; }
 .b2 { animation-name: loop2; }
 .b3 { animation-name: loop3; }
 .b4 { animation-name: loop4; }
 
-/* ── TEXTO ── */
+/* ── Texto ── */
 .title {
   font-family: 'Unbounded', sans-serif;
   font-size: clamp(17px, 4.8vw, 26px);
@@ -109,8 +101,153 @@ body {
   animation: fadeUp .5s 1.05s ease both;
 }
 
+/* ── Panel de instrucciones (primera visita) ── */
+.instructions-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,240,247,.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s ease;
+  z-index: 10;
+}
+.instructions-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.instructions-sheet {
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  max-width: 480px;
+  padding: 28px 24px 40px;
+  transform: translateY(32px);
+  transition: transform .35s ease;
+  box-shadow: 0 -4px 32px rgba(219,39,119,.12);
+}
+.instructions-overlay.show .instructions-sheet {
+  transform: translateY(0);
+}
 
-/* ── FALLBACK ── */
+.inst-pill {
+  width: 36px;
+  height: 4px;
+  background: #E5E5EA;
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+.inst-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1A1526;
+  margin-bottom: 6px;
+}
+.inst-sub {
+  font-size: 14px;
+  color: #6C6778;
+  margin-bottom: 22px;
+  line-height: 1.5;
+}
+
+.inst-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 24px;
+  background: #F9F9FB;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #E5E5EA;
+}
+.inst-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 16px;
+  border-bottom: 1px solid #E5E5EA;
+}
+.inst-step:last-child { border-bottom: none; }
+.inst-step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #FFF0F6;
+  color: #DB2777;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.inst-step-text {
+  font-size: 13.5px;
+  color: #1A1526;
+  line-height: 1.45;
+}
+.inst-step-text strong { color: #1A1526; }
+.inst-step-text .subtle { color: #6C6778; font-size: 12px; display: block; margin-top: 2px; }
+
+.inst-os-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.inst-os-tab {
+  flex: 1;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1.5px solid #E5E5EA;
+  background: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6C6778;
+  cursor: pointer;
+  transition: .15s;
+}
+.inst-os-tab.active {
+  border-color: #DB2777;
+  background: #FFF0F6;
+  color: #DB2777;
+}
+
+.inst-open-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: #DB2777;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: .02em;
+  transition: opacity .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.inst-open-btn:active { opacity: .85; }
+.inst-skip {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #DF9DBA;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Fallback link (returning users) ── */
 .fallback {
   position: fixed;
   bottom: 32px;
@@ -124,7 +261,6 @@ body {
 }
 .fallback:active { opacity: .5; }
 
-/* ── KEYFRAMES ── */
 @keyframes fadeUp {
   from { opacity:0; transform: translateY(10px); }
   to   { opacity:1; transform: translateY(0); }
@@ -133,38 +269,104 @@ body {
 </head>
 <body>
 
-<!-- Logo SVG inline, sin fondo ni recuadro -->
 <svg class="logo-svg" viewBox="36 38 108 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Bar 1: más corta, izquierda -->
-  <path class="b1"
-    d="M55.9333 106H39.0667C37.373 106 36 107.393 36 109.111V144.889C36 146.607 37.373 148 39.0667 148H55.9333C57.627 148 59 146.607 59 144.889V109.111C59 107.393 57.627 106 55.9333 106Z"
-    fill="#DB2777" fill-opacity="0.18"/>
-  <!-- Bar 2 -->
-  <path class="b2"
-    d="M84.8 84H67.2C65.4327 84 64 85.3977 64 87.122V144.878C64 146.602 65.4327 148 67.2 148H84.8C86.5673 148 88 146.602 88 144.878V87.122C88 85.3977 86.5673 84 84.8 84Z"
-    fill="#DB2777" fill-opacity="0.4"/>
-  <!-- Bar 3 -->
-  <path class="b3"
-    d="M112.8 62H95.2C93.4327 62 92 63.4001 92 65.1273V144.873C92 146.6 93.4327 148 95.2 148H112.8C114.567 148 116 146.6 116 144.873V65.1273C116 63.4001 114.567 62 112.8 62Z"
-    fill="#DB2777" fill-opacity="0.64"/>
-  <!-- Bar 4: la más alta, derecha -->
-  <path class="b4"
-    d="M140.933 38H124.067C122.373 38 121 39.4071 121 41.1429V144.857C121 146.593 122.373 148 124.067 148H140.933C142.627 148 144 146.593 144 144.857V41.1429C144 39.4071 142.627 38 140.933 38Z"
-    fill="#DB2777"/>
+  <path class="b1" d="M55.9333 106H39.0667C37.373 106 36 107.393 36 109.111V144.889C36 146.607 37.373 148 39.0667 148H55.9333C57.627 148 59 146.607 59 144.889V109.111C59 107.393 57.627 106 55.9333 106Z" fill="#DB2777" fill-opacity="0.18"/>
+  <path class="b2" d="M84.8 84H67.2C65.4327 84 64 85.3977 64 87.122V144.878C64 146.602 65.4327 148 67.2 148H84.8C86.5673 148 88 146.602 88 144.878V87.122C88 85.3977 86.5673 84 84.8 84Z" fill="#DB2777" fill-opacity="0.4"/>
+  <path class="b3" d="M112.8 62H95.2C93.4327 62 92 63.4001 92 65.1273V144.873C92 146.6 93.4327 148 95.2 148H112.8C114.567 148 116 146.6 116 144.873V65.1273C116 63.4001 114.567 62 112.8 62Z" fill="#DB2777" fill-opacity="0.64"/>
+  <path class="b4" d="M140.933 38H124.067C122.373 38 121 39.4071 121 41.1429V144.857C121 146.593 122.373 148 124.067 148H140.933C142.627 148 144 146.593 144 144.857V41.1429C144 39.4071 142.627 38 140.933 38Z" fill="#DB2777"/>
 </svg>
 
 <div class="title">MIS FINANZAS</div>
 <div class="tagline">Tu tracker personal</div>
 
-<a class="fallback" href="https://script.google.com/macros/s/AKfycby1mtbTJY4r9Yfwc-WP2B308PvHzpORiW7lQ8DbZL65Jj4EwFj54yUHDy56d_mLHXn28w/exec">
-  Abrir →
-</a>
+<!-- Instrucciones (primera visita) -->
+<div class="instructions-overlay" id="inst-overlay">
+  <div class="instructions-sheet">
+    <div class="inst-pill"></div>
+    <div class="inst-title">Guardá la app en tu celular</div>
+    <div class="inst-sub">Para acceder rápido sin buscar el link, guardá esta página como acceso directo.</div>
+
+    <div class="inst-os-tabs">
+      <button class="inst-os-tab active" id="tab-ios" onclick="showOS('ios')"> iPhone / iPad</button>
+      <button class="inst-os-tab" id="tab-android" onclick="showOS('android')"> Android</button>
+    </div>
+
+    <div id="steps-ios" class="inst-steps">
+      <div class="inst-step">
+        <div class="inst-step-num">1</div>
+        <div class="inst-step-text">Tocá el botón <strong>Compartir</strong> en Safari<span class="subtle">El ícono de la cajita con la flecha hacia arriba, abajo de la pantalla</span></div>
+      </div>
+      <div class="inst-step">
+        <div class="inst-step-num">2</div>
+        <div class="inst-step-text">Elegí <strong>"Agregar a pantalla de inicio"</strong><span class="subtle">Deslizá hacia abajo en el menú si no lo ves</span></div>
+      </div>
+      <div class="inst-step">
+        <div class="inst-step-num">3</div>
+        <div class="inst-step-text">Tocá <strong>"Agregar"</strong> — listo ✓<span class="subtle">Ya aparece el ícono en tu pantalla de inicio</span></div>
+      </div>
+    </div>
+
+    <div id="steps-android" class="inst-steps" style="display:none">
+      <div class="inst-step">
+        <div class="inst-step-num">1</div>
+        <div class="inst-step-text">Tocá el menú <strong>⋮</strong> en Chrome<span class="subtle">Los tres puntos arriba a la derecha</span></div>
+      </div>
+      <div class="inst-step">
+        <div class="inst-step-num">2</div>
+        <div class="inst-step-text">Elegí <strong>"Agregar a pantalla de inicio"</strong></div>
+      </div>
+      <div class="inst-step">
+        <div class="inst-step-num">3</div>
+        <div class="inst-step-text">Tocá <strong>"Agregar"</strong> — listo ✓<span class="subtle">Ya aparece el ícono en tu pantalla de inicio</span></div>
+      </div>
+    </div>
+
+    <a class="inst-open-btn" id="open-btn" href="#">Abrir Mis Finanzas →</a>
+    <span class="inst-skip" onclick="skipAndOpen()">Ya la tengo guardada, ir directo →</span>
+  </div>
+</div>
+
+<a class="fallback" id="fallback-link" href="#">Abrir →</a>
 
 <script>
   const APP_URL = 'https://script.google.com/macros/s/AKfycby1mtbTJY4r9Yfwc-WP2B308PvHzpORiW7lQ8DbZL65Jj4EwFj54yUHDy56d_mLHXn28w/exec';
-  // Redirige casi de inmediato — la animación se ve mientras GAS carga en segundo plano.
-  // El delay de 300ms solo sirve para que la animación arranque antes de navegar.
-  setTimeout(() => { window.location.replace(APP_URL); }, 300);
+  const VISITED_KEY = 'mf_visited';
+
+  document.getElementById('open-btn').href = APP_URL;
+  document.getElementById('fallback-link').href = APP_URL;
+
+  // Detectar OS para preseleccionar la pestaña correcta
+  const isAndroid = /android/i.test(navigator.userAgent);
+  if (isAndroid) showOS('android');
+
+  const isReturning = localStorage.getItem(VISITED_KEY);
+
+  if (isReturning) {
+    // Usuario conocido → redirect rápido como antes
+    setTimeout(() => { window.location.replace(APP_URL); }, 300);
+  } else {
+    // Primera visita → mostrar instrucciones después de la animación
+    setTimeout(() => {
+      document.getElementById('inst-overlay').classList.add('show');
+    }, 1600);
+  }
+
+  function showOS(os) {
+    document.getElementById('steps-ios').style.display     = os === 'ios'     ? '' : 'none';
+    document.getElementById('steps-android').style.display = os === 'android' ? '' : 'none';
+    document.getElementById('tab-ios').classList.toggle('active', os === 'ios');
+    document.getElementById('tab-android').classList.toggle('active', os === 'android');
+  }
+
+  function skipAndOpen() {
+    localStorage.setItem(VISITED_KEY, '1');
+    window.location.replace(APP_URL);
+  }
+
+  // Al tocar "Abrir" también marcar como visitado
+  document.getElementById('open-btn').addEventListener('click', function() {
+    localStorage.setItem(VISITED_KEY, '1');
+  });
 </script>
 </body>
 </html>
